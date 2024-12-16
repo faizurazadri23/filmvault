@@ -1,6 +1,8 @@
-import 'package:filmvault/ui/splash_page.dart';
+import 'package:filmvault/config/navigation.dart';
 import 'package:filmvault/utils/app_strings.dart';
 import 'package:flutter/material.dart';
+
+import '../config/routes.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -9,11 +11,13 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: AppStrings.appName,
+      navigatorKey: Navigation.instance.navigatorKey,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const SplashPage(),
+      initialRoute: Routes.splash,
+      onGenerateRoute: Routes.generateRoute,
     );
   }
 }

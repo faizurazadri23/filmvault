@@ -5,3 +5,4 @@ export 'custom_input_text.dart';
 export 'custom_paddings.dart';
 export 'custom_sizes.dart';
 export 'custom_text.dart';
+export 'custom_outline_input.dart';

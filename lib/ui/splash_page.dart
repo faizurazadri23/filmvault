@@ -1,3 +1,7 @@
+import 'package:filmvault/component/atom/atom.dart';
+import 'package:filmvault/config/navigation.dart';
+import 'package:filmvault/config/routes.dart';
+import 'package:filmvault/utils/app_strings.dart';
 import 'package:flutter/material.dart';
 
 class SplashPage extends StatefulWidget{
@@ -11,10 +15,20 @@ class SplashPage extends StatefulWidget{
 class _StateSplash extends State<SplashPage>{
 
   @override
+  void initState(){
+    super.initState();
+    Future.delayed(const Duration(seconds: 3),() {
+      Navigation.instance.navigateAndReplaceAll(Routes.login);
+    },);
+  }
+
+
+  @override
   Widget build(BuildContext context) {
 
     return Scaffold(
       body: Center(
+        child: CustomText.textMedium14(context: context, text: AppStrings.appName),
       ),
     );
   }
