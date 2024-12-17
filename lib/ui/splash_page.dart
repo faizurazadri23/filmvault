@@ -1,8 +1,9 @@
 import 'package:filmvault/component/atom/atom.dart';
 import 'package:filmvault/config/navigation.dart';
 import 'package:filmvault/config/routes.dart';
-import 'package:filmvault/utils/app_strings.dart';
 import 'package:flutter/material.dart';
+
+import '../config/constants/app_strings.dart';
 
 class SplashPage extends StatefulWidget{
   const SplashPage({super.key});

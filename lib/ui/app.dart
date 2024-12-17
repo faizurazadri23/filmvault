@@ -1,7 +1,7 @@
 import 'package:filmvault/config/navigation.dart';
-import 'package:filmvault/utils/app_strings.dart';
 import 'package:flutter/material.dart';
 
+import '../config/constants/app_strings.dart';
 import '../config/routes.dart';
 
 class MyApp extends StatelessWidget {
