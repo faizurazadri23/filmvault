@@ -1,9 +1,9 @@
 import 'package:filmvault/component/atom/atom.dart';
 import 'package:filmvault/component/molecules/custom_appbar.dart';
+import 'package:filmvault/component/molecules/custom_snackbar.dart';
 import 'package:filmvault/config/constants/app_strings.dart';
 import 'package:filmvault/config/navigation.dart';
 import 'package:filmvault/config/routes.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatefulWidget {
@@ -55,6 +55,10 @@ class _StateLogin extends State<LoginPage> {
             SizedBox(height: CustomSizes.hp15(context),),
             InkWell(
               onTap: () {
+
+                if(_usernameController.text.toString()!="user" && _passwordController.text.toString()!="123"){
+                  return CustomSnackBar.showTop(context, message: 'Username atau Password Salah');
+                }
                 Navigation.instance.navigateAndReplaceAll(Routes.dashboard);
               },
               child: SizedBox(

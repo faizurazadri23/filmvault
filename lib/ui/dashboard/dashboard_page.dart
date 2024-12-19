@@ -1,5 +1,11 @@
+import 'package:filmvault/blocs/movie_trending/movie_trending_bloc.dart';
+import 'package:filmvault/blocs/movie_trending/movie_trending_event.dart';
+import 'package:filmvault/blocs/movie_trending/movie_trending_state.dart';
 import 'package:filmvault/blocs/now_movie_playing/now_movie_playing_event.dart';
 import 'package:filmvault/blocs/now_movie_playing/now_movie_playing_state.dart';
+import 'package:filmvault/blocs/upcoming/upcoming_movie_bloc.dart';
+import 'package:filmvault/blocs/upcoming/upcoming_movie_event.dart';
+import 'package:filmvault/blocs/upcoming/upcoming_movie_state.dart';
 import 'package:filmvault/component/atom/atom.dart';
 import 'package:filmvault/component/molecules/molecules.dart';
 import 'package:filmvault/component/section/movie_section.dart';
@@ -27,11 +33,14 @@ class _StateDashboardPage extends State<DashboardPage> {
   ];
 
   final _nowMoviePlayingBloc = inject<NowMoviePlayingBloc>();
-  final _page = 1;
+  final _movieTrendingBloc = inject<MovieTrendingBloc>();
+  final _upComingMovieBloc = inject<UpComingMovieBloc>();
 
   @override
   void initState(){
-    _nowMoviePlayingBloc.add(NowMoviePlayingGet(_page));
+    _nowMoviePlayingBloc.add(NowMoviePlayingGet(1));
+    _movieTrendingBloc.add(MovieTrendingGet(1));
+    _upComingMovieBloc.add(UpComingMovieGet(1));
     super.initState();
   }
 
@@ -98,28 +107,51 @@ class _StateDashboardPage extends State<DashboardPage> {
             SizedBox(height: CustomSizes.hp4(context),),
             SingleChildScrollView(
               scrollDirection: Axis.horizontal,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: List.generate(10, (index) {
-                  return MovieSection.itemMovie(context, url: 'https://images.tokopedia.net/img/cache/700/hDjmkQ/2023/11/8/af3ff20c-18c0-4341-95e4-03481b537bdb.jpg', onTap: () {
+              child: BlocBuilder(
+                bloc: _movieTrendingBloc,
+                builder: (context, state) {
+                if(state is MovieLoadingTrending){
 
-                  },);
-                },),
-              ),
+                }else if(state is MovieSuccessTrending){
+                  return Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: state.trendingMovieResult.results.map((item) {
+                      return MovieSection.itemMovie(context, url: '${AppStrings.urlImagePath}${item.backdropPath}', onTap: () {
+
+                      },);
+                    },).toList(),
+                  );
+                }else if(state is MovieFailedTrending){
+
+                }
+                return SizedBox();
+              },),
             ),
             SizedBox(height: CustomSizes.hp4(context),),
             MovieSection.titleMenu(context, title: 'Segera hadir'),
             SizedBox(height: CustomSizes.hp4(context),),
             SingleChildScrollView(
               scrollDirection: Axis.horizontal,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: List.generate(10, (index) {
-                  return MovieSection.itemMovie(context, url: 'https://images.tokopedia.net/img/cache/700/hDjmkQ/2023/11/8/af3ff20c-18c0-4341-95e4-03481b537bdb.jpg', onTap: () {
+              child: BlocBuilder(
+                bloc: _upComingMovieBloc,
+                builder: (context, state) {
+                if(state is UpComingLoadingMovie){
 
-                  },);
-                },),
-              ),
+                }else if(state is UpComingSuccessMovie){
+                  return Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: state.upComingMovieResult.results.map((item) {
+                      return MovieSection.itemMovie(context, url: '${AppStrings.urlImagePath}${item.backdropPath}', onTap: () {
+
+                      },);
+                    },).toList(),
+                  );
+                }else if(state is UpComingFailedMovie){
+
+                }
+
+                return SizedBox();
+              },),
             ),
             SizedBox(height: CustomSizes.hp4(context),),
             MovieSection.titleMenu(context, title: 'Saat ini tayang'),
