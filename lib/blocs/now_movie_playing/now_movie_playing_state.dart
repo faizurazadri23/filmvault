@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
-import 'package:filmvault/model/api/now_movie_result.dart';
+
+import '../../model/api/movie_result.dart';
 
 abstract class NowMoviePlayingState extends Equatable {
   @override
@@ -17,7 +18,7 @@ class NowMovieLoadingPlaying extends NowMoviePlayingState {
 }
 
 class NowMovieSuccessPlaying extends NowMoviePlayingState {
-  final NowMovieResult nowMovieResult;
+  final MovieResult nowMovieResult;
 
   NowMovieSuccessPlaying(this.nowMovieResult);
 

@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../config/constants/response_messages.dart';
 import '../../core/network/dio_client.dart';
-import '../../model/api/upcoming_movie_result.dart';
+import '../../model/api/movie_result.dart';
 
 class UpComingMovieBloc extends Bloc<UpComingMovieEvent, UpComingMovieState> {
   UpComingMovieBloc() : super(UpComingInitialMovie()) {
@@ -22,7 +22,7 @@ class UpComingMovieBloc extends Bloc<UpComingMovieEvent, UpComingMovieState> {
         'size': event.page,
       });
 
-      emit(UpComingSuccessMovie(UpComingMovieResult.fromJson(response.data)));
+      emit(UpComingSuccessMovie(MovieResult.fromJson(response.data)));
     } on DioException catch (e) {
       final statusCode = e.response?.statusCode;
 

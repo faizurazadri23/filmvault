@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 
-import '../../model/api/upcoming_movie_result.dart';
+import '../../model/api/movie_result.dart';
 
 abstract class UpComingMovieState extends Equatable {
   @override
@@ -18,7 +18,7 @@ class UpComingLoadingMovie extends UpComingMovieState {
 }
 
 class UpComingSuccessMovie extends UpComingMovieState {
-  final UpComingMovieResult upComingMovieResult;
+  final MovieResult upComingMovieResult;
 
   UpComingSuccessMovie(this.upComingMovieResult);
 

@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 
-import '../../model/api/top_rated_result.dart';
+import '../../model/api/movie_result.dart';
 
 abstract class TopRatedState extends Equatable {
   @override
@@ -19,7 +19,7 @@ class TopRatedInitial extends TopRatedState {
 
 class TopRatedSuccess extends TopRatedState {
 
-  final TopRatedResult topRatedResult;
+  final MovieResult topRatedResult;
 
 
   TopRatedSuccess(this.topRatedResult);

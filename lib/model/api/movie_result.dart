@@ -1,22 +1,23 @@
-import 'movie.dart';
+import 'package:filmvault/model/api/movie.dart';
 
-class TrendingMovieResult{
+class MovieResult{
   int page;
   List<Movie> results;
   int totalPages;
   int totalResults;
 
-  TrendingMovieResult({
+  MovieResult({
     required this.page,
     required this.results,
     required this.totalPages,
     required this.totalResults,
   });
 
-  factory TrendingMovieResult.fromJson(Map<String, dynamic> json) => TrendingMovieResult(
+  factory MovieResult.fromJson(Map<String, dynamic> json) => MovieResult(
     page: json["page"],
     results: List<Movie>.from(json["results"].map((x) => Movie.fromJson(x))),
     totalPages: json["total_pages"],
     totalResults: json["total_results"],
   );
+
 }

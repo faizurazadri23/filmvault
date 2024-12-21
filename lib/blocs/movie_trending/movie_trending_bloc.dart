@@ -1,11 +1,11 @@
 import 'package:dio/dio.dart';
 import 'package:filmvault/blocs/movie_trending/movie_trending_event.dart';
 import 'package:filmvault/blocs/movie_trending/movie_trending_state.dart';
-import 'package:filmvault/model/api/trending_movie_result.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../config/constants/response_messages.dart';
 import '../../core/network/dio_client.dart';
+import '../../model/api/movie_result.dart';
 
 class MovieTrendingBloc extends Bloc<MovieTrendingEvent, MovieTrendingState> {
   MovieTrendingBloc() : super(MovieInitialTrending()) {
@@ -20,7 +20,7 @@ class MovieTrendingBloc extends Bloc<MovieTrendingEvent, MovieTrendingState> {
       var response =
           await DioClient().dio.get('trending/movie/day');
 
-      emit(MovieSuccessTrending(TrendingMovieResult.fromJson(response.data)));
+      emit(MovieSuccessTrending(MovieResult.fromJson(response.data)));
     } on DioException catch (e) {
       final statusCode = e.response?.statusCode;
 

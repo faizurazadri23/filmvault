@@ -1,11 +1,10 @@
 import 'package:dio/dio.dart';
 import 'package:filmvault/blocs/top_rated/top_rated_event.dart';
 import 'package:filmvault/blocs/top_rated/top_rated_state.dart';
-import 'package:filmvault/model/api/top_rated_result.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../../config/constants/response_messages.dart';
 import '../../core/network/dio_client.dart';
+import '../../model/api/movie_result.dart';
 
 class TopRatedBloc extends Bloc<TopRatedEvent, TopRatedState> {
   TopRatedBloc() : super(TopRatedInitial()) {
@@ -22,7 +21,7 @@ class TopRatedBloc extends Bloc<TopRatedEvent, TopRatedState> {
         'size': event.page,
       });
 
-      emit(TopRatedSuccess(TopRatedResult.fromJson(response.data)));
+      emit(TopRatedSuccess(MovieResult.fromJson(response.data)));
     } on DioException catch (e) {
       final statusCode = e.response?.statusCode;
 

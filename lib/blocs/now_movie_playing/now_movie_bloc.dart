@@ -1,11 +1,11 @@
 import 'package:dio/dio.dart';
 import 'package:filmvault/blocs/now_movie_playing/now_movie_playing_event.dart';
 import 'package:filmvault/blocs/now_movie_playing/now_movie_playing_state.dart';
-import 'package:filmvault/model/api/now_movie_result.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../config/constants/response_messages.dart';
 import '../../core/network/dio_client.dart';
+import '../../model/api/movie_result.dart';
 
 class NowMoviePlayingBloc
     extends Bloc<NowMoviePlayingEvent, NowMoviePlayingState> {
@@ -23,7 +23,7 @@ class NowMoviePlayingBloc
         'size': event.page,
       });
 
-      emit(NowMovieSuccessPlaying(NowMovieResult.fromJson(response.data)));
+      emit(NowMovieSuccessPlaying(MovieResult.fromJson(response.data)));
     } on DioException catch (e) {
       final statusCode = e.response?.statusCode;
 

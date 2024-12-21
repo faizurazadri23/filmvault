@@ -3,6 +3,9 @@ import 'package:filmvault/blocs/movie_trending/movie_trending_event.dart';
 import 'package:filmvault/blocs/movie_trending/movie_trending_state.dart';
 import 'package:filmvault/blocs/now_movie_playing/now_movie_playing_event.dart';
 import 'package:filmvault/blocs/now_movie_playing/now_movie_playing_state.dart';
+import 'package:filmvault/blocs/popular/movie_popular_bloc.dart';
+import 'package:filmvault/blocs/popular/movie_popular_event.dart';
+import 'package:filmvault/blocs/popular/movie_popular_state.dart';
 import 'package:filmvault/blocs/top_rated/top_rated_bloc.dart';
 import 'package:filmvault/blocs/top_rated/top_rated_event.dart';
 import 'package:filmvault/blocs/top_rated/top_rated_state.dart';
@@ -38,6 +41,7 @@ class _StateDashboardPage extends State<DashboardPage> {
   final _movieTrendingBloc = inject<MovieTrendingBloc>();
   final _upComingMovieBloc = inject<UpComingMovieBloc>();
   final _topRatedBloc = inject<TopRatedBloc>();
+  final _moviePopularBloc = inject<MoviePopularBloc>();
 
   @override
   void initState() {
@@ -50,6 +54,7 @@ class _StateDashboardPage extends State<DashboardPage> {
     _movieTrendingBloc.add(MovieTrendingGet(1));
     _upComingMovieBloc.add(UpComingMovieGet(1));
     _topRatedBloc.add(TopRatedGet(1));
+    _moviePopularBloc.add(MoviePopularGet(1));
   }
 
   @override
@@ -223,19 +228,29 @@ class _StateDashboardPage extends State<DashboardPage> {
                 ),
                 SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: List.generate(
-                      10,
-                          (index) {
-                        return MovieSection.itemMovie(
-                          context,
-                          url:
-                          'https://images.tokopedia.net/img/cache/700/hDjmkQ/2023/11/8/af3ff20c-18c0-4341-95e4-03481b537bdb.jpg',
-                          onTap: () {},
+                  child: BlocBuilder(
+                    bloc: _moviePopularBloc,
+                    builder: (context, state) {
+                      if (state is MovieLoadingPopular) {
+                        return MovieSection.loadingConditionMovie(context);
+                      } else if (state is MovieSuccessPopular) {
+                        return Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: state.popularMovie.results.map(
+                                (item) {
+                              return MovieSection.itemMovie(
+                                context,
+                                url:
+                                '${AppStrings.urlImagePath}${item.backdropPath}',
+                                onTap: () {},
+                              );
+                            },
+                          ).toList(),
                         );
-                      },
-                    ),
+                      } else if (state is MovieFailedPopular) {}
+
+                      return SizedBox();
+                    },
                   ),
                 ),
               ],
