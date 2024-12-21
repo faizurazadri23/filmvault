@@ -19,7 +19,7 @@ class MoviePopularBloc extends Bloc<MoviePopularEvent, MoviePopularState>{
       emit(MovieLoadingPopular());
 
       var response =
-      await DioClient().dio.get('trending/movie/popular');
+      await DioClient().dio.get('movie/popular');
 
       emit(MovieSuccessPopular(MovieResult.fromJson(response.data)));
     }on DioException catch(e){

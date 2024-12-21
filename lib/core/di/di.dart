@@ -1,3 +1,4 @@
+import 'package:filmvault/blocs/detail_movie/detail_movie_bloc.dart';
 import 'package:filmvault/blocs/movie_trending/movie_trending_bloc.dart';
 import 'package:filmvault/blocs/now_movie_playing/now_movie_bloc.dart';
 import 'package:filmvault/blocs/popular/movie_popular_bloc.dart';
@@ -16,6 +17,7 @@ Future<void> di() async {
   inject.registerFactory(() => UpComingMovieBloc());
   inject.registerFactory(() => TopRatedBloc());
   inject.registerFactory(() => MoviePopularBloc());
+  inject.registerFactory(() => DetailMovieBloc());
 
   inject.registerLazySingleton(() => inject<DioClient>().dio);
 
